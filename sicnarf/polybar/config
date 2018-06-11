@@ -1,0 +1,210 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+[color]
+white = #fff
+
+
+
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color15:#222}
+foreground-alt = ${xrdb:color8:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+ternary = ${xrdb:color5:#222}
+quadary = ${xrdb:color7:#222}
+crazy = ${xrdb:color14:#222}
+
+[bar/barr]
+  font-0 = Weather Icons:size=12;1
+  font-1 = "Operator Mono Lig:style=Medium"
+  font-2 = "Operator Mono Lig:style=Medium Italic,Italic"
+  font-3 = "Graduate:size=12:style=Regular"
+  font-4 = Font Awesome 5 Free:style=Solid:pixelsize=12
+
+  override-redirect = false
+  bottom = false
+  fixed-center = true
+  width = 100%
+  height = 24
+
+  monitor = HDMI-0
+
+	background = ${color.background}
+	foreground = ${color.foreground}
+
+  line-color = ${color.secondary}
+  underline-size = 0
+  overline-size = 0
+
+  border-bottom-size = 3
+  border-bottom-color = ${color.foreground-alt}
+
+  padding-left = 2 
+  padding-right = 2
+  module-margin-left = 1
+  module-margin-right = 1
+
+  tray-position = right
+  tray-padding = 0
+  tray-maxsize = 16
+
+  scroll-up = i3wm-wsnext
+  scroll-down = i3wm-wsprev
+
+  modules-left = workspaces 
+  modules-center = xwindow
+  modules-right =  date
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[bar/barl]
+  inherit = bar/barr
+  scroll-up = i3wm-wsnext
+  scroll-down = i3wm-wsprev
+
+  modules-left = workspaces 
+  modules-center = spotify 
+  modules-right =  weather padding mailtext inbox padding pulseaudio padding filesystem
+  monitor = DVI-1
+
+	background = ${color.background}
+  foreground = ${color.foreground}
+
+	border-bottom-size  = 3
+  border-bottom-color = ${color.foreground-alt}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/xwindow]
+  type = internal/xwindow
+  format = <label>
+  label = %{T3}%title:0:50:%%{T-}
+  label-maxlen = 75
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/padding]
+	type               = custom/text
+	content            = %{T5}%{T-}
+	content-foreground = ${color.crazy}
+  content-background = ${color.background}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/workspaces]
+
+	type            = internal/i3
+	format          = <label-state> <label-mode>
+	index-sort      = true
+	wrapping-scroll = false
+	strip-wsnumbers = true
+
+
+  label-mode = %mode%
+	label-mode-background = ${color.foreground}
+	label-mode-foreground = ${color.background}
+	label-mode-padding    = 1.5
+
+	label-focused            = %{T3}%name%%{T-}
+	label-focused-background = ${color.alert}
+	label-focused-foreground = ${color.crazy}
+	label-focused-padding    = 1.25
+
+	label-unfocused            = %{T2}%name%%{T-}
+	label-unfocused-background = ${color.background}
+	label-unfocused-foreground = ${color.foreground}
+	label-unfocused-padding    = 1.25
+
+	label-visible            = %{T2}%name%%{T-}
+	label-visible-background = ${color.background}
+	label-visible-foreground = ${color.foreground}
+	label-visible-padding    = 1.25
+
+	label-urgent            = %name%
+	label-urgent-background = ${color.background}
+	label-urgent-foreground = ${color.crazy}
+  label-urgent-padding = 1.25
+
+
+;;;;;;;;;;;;;;;;;;;;;
+
+[module/date]
+  type = internal/date
+  interval = 30
+  label = %{T3}%date% | %time%%{T-}
+  time = %I:%M
+  date = %A %d 
+  time-alt = %H:%M
+  date-alt = %B %d %Y
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/spotify]
+  type = custom/script
+  exec = ~/.config/polybar/spotify.sh
+  click-right = playerctl previous 
+  click-left = playerctl next 
+  tail = true
+  interval = 10
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/filesystem]
+  type = internal/fs
+
+  ; Mountpoints to display
+  mount-0 = /
+  interval = 100
+  ; Display fixed precision values
+  fixed-values = true
+
+  ; Spacing between entries
+  spacing = 0
+
+  format-mounted = <label-mounted> 
+  format-unmounted = <label-unmounted>
+  label-mounted = %{T5}%{T-} %percentage_used%% 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = true
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+format-volume = <label-volume>
+format-muted = <label-muted>
+
+label-volume = %percentage%% %{T5}%{T-}
+label-muted = %{T5}%{T-}  
+label-muted-foreground = #ff0000
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/openweathermap-simple.sh
+interval = 600
+label-font = 0
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+[module/inbox]
+type = custom/script
+exec = ~/.config/polybar/gmail.py
+interval = 180
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/mailtext]
+  type               = custom/text
+  content            = %{T5}%{T-}
+

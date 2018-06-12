@@ -29,15 +29,21 @@ alias mem_hogs='top -l 1 -o rsize | head -20'
 # Update pip, this is bad lol.
 alias pipup="pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U"
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
-
+# Clear some junk files so that my machine is happier 
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+#
 # Gimme the weather in Charlotte
 alias wclt='curl wttr.in/charlotte'
 
 # Reload the shell 
 alias reload="exec ${SHELL} -l"
 
-# Clear some junk files so that my machine is happier 
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
 alias bk="cd ../"
 alias bkk="cd ../../"
+
+

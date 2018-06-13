@@ -1,17 +1,10 @@
-#-------------------------------------------------------------
-# 0ero1ne custom .bash_profile
-#-------------------------------------------------------------
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# Bash completions
+# brew install bash-completions
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-#-------------------------------------------------------------
-# Some settings
-#-------------------------------------------------------------
-
-#set -o nounset
-#set -o xtrace
 
 ulimit -S -c 0      # No coredumps.
 set -o notify
@@ -30,19 +23,9 @@ shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s nullglob
 
-# Disable options:
-
-
-
-#-------------------------------------------------------------
-# Global Variables
-#-------------------------------------------------------------
 
 # Do echo after each command
 export PROMPT_COMMAND=''
-
-# Profile
-# export PROFILE=/Users/zero-one/.bash_profile
 
 # Path
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
@@ -183,7 +166,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 # Messages
 
-# If id command returns zero, you have root access.
+# If id command returns 1, you have root access.
 if [ $(id -u) -eq 0 ]; then
     # Root
     export PS1="\[${TITLEBAR}\]\[$Yellow\]«\[$Red\]rØØt\[$Green\][$Yellow\]» \[$NC\]"

@@ -11,24 +11,24 @@ Plugin 'VundleVim/Vundle.vim'
 " Syntax
 Plugin 'elzr/vim-json'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'mitsuhiko/flask'
-Plugin 'Glench/Vim-Jinja2-Syntax'
-Plugin 'chrisbra/csv.vim'
 Plugin 'smintz/vim-sqlutil'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'ap/vim-css-color'
+
 " Utiltiies
 Plugin 'mattn/emmet-vim'
+Plugin 'luochen1990/rainbow'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'geoffharcourt/vim-matchit'
 Plugin 'alvan/closetag.vim'
-Plugin 'tpope/vim-surround'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'chrisbra/Colorizer'
+
 " Visual
 Plugin 'itchyny/lightline.vim' 
 Bundle 'daviesjamie/vim-base16-lightline'
@@ -126,6 +126,8 @@ vnoremap > >gv
 map vv :vsplit<CR>
 map ss :split<CR>
 
+map <leader>i :IndentGuidesToggle<CR>
+"
 " Ctrl P stuff
 nmap ; :CtrlPCurWD<CR>
 set wildignore+=*/tmp/*,*.zip,*.pyc,*/env/*,*/.git/*

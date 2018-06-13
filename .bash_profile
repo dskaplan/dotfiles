@@ -55,7 +55,7 @@ export PATH=~/bin:$PATH
 #-------------------------------------------------------------
 
 # Shell colors
-export TERM=xterm-color
+#export TERM=xterm-color
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1
 #export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
@@ -115,16 +115,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 alias cp='cp -v'		# Copy vebose mode
 alias cpr='cp -v -r'	# Copy a directory verbose
 alias mv='mv -v -f'		# Move vebose
-alias rm='rm -v -f'     # Remove verbose without asking
-alias rmr='rm -v -r -f'	# Remove directory verbose
-
-alias k='kill $!'       # Kill lhe last process opened
-
 alias c='clear'         # Clear the screen
-
-alias root='sudo -i'    # Root shell
-
-
 
 #-------------------------------------------------------------
 # Functions
@@ -177,14 +168,6 @@ function text()
 
 
 
-# Stop song
-function stop()
-{
-    k $song
-}
-
-
-
 #-------------------------------------------------------------
 # Prompt & Greetings
 #-------------------------------------------------------------
@@ -192,8 +175,12 @@ function stop()
 # Title bar black
 #echo -n -e "\033]6;;bg;black;brightness;100\a"
 #TITLEBAR='\[\033]0;[\u] - [${SHELL} - \V]\007\]'
-source .aliases
+source ~/.aliases
 
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 # Messages
 
 # If id command returns zero, you have root access.

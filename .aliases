@@ -42,7 +42,7 @@ alias wclt='curl wttr.in/charlotte'
 # Reload the shell 
 alias reload="exec ${SHELL} -l"
 
-
+alias g="git"
 alias bk="cd ../"
 alias bkk="cd ../../"
 

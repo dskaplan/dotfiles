@@ -10,20 +10,19 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Syntax
 Plugin 'elzr/vim-json'
-Plugin 'vim-scripts/indentpython.vim'
 Plugin 'smintz/vim-sqlutil'
-Plugin 'hail2u/vim-css3-syntax'
 Plugin 'ap/vim-css-color'
 
 " Utiltiies
 Plugin 'mattn/emmet-vim'
-Plugin 'luochen1990/rainbow'
+Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'geoffharcourt/vim-matchit'
 Plugin 'alvan/closetag.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'nathanaelkane/vim-indent-guides'
+
 " Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -39,9 +38,6 @@ call vundle#end()
 filetype plugin indent on 
 
 syntax enable
-autocmd BufNewFile,BufReadPost *.md,*.markdown set filetype=markdown
-autocmd FileType markdown set tw=80
-au BufNewFile,BufRead *.csv,*.tsv,*.txt set tw=0 noet sts=0
 
 let mapleader=','
 
@@ -69,7 +65,7 @@ set nofoldenable
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
-set textwidth=100
+set textwidth=180
 
 set backspace=indent,eol,start
 set isk+=@,%,#
@@ -127,7 +123,8 @@ map vv :vsplit<CR>
 map ss :split<CR>
 
 map <leader>i :IndentGuidesToggle<CR>
-"
+map <leader>r :RainbowParenthesesToggle<CR>
+
 " Ctrl P stuff
 nmap ; :CtrlPCurWD<CR>
 set wildignore+=*/tmp/*,*.zip,*.pyc,*/env/*,*/.git/*
@@ -135,12 +132,10 @@ let g:ctrlp_lazy_update = 1
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:50'
 let g:ctrlp_switch_buffer = 'Et'
 
-augroup VimCSS3Syntax
-  autocmd!
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
-
-
+" md is markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md set spell
+au BufNewFile,BufRead *.csv,*.tsv,*.txt set tw=0 noet sts=0
 
 " Syntastic
 let g:syntastic_mode_map = { 'mode': 'passive',     
@@ -153,7 +148,7 @@ nnoremap <silent><leader>s :SyntasticCheck<CR>
 " VISUAL STUFF
 set termguicolors
 set t_ut= " improve screen clearing by using the background color
-set background=dark
+" set background=dark
 let base16colorspace=256
 colorscheme base16-eighties
 " let $TERM='screen-256color'

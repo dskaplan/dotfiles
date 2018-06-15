@@ -88,68 +88,8 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 
-
-#-------------------------------------------------------------
-# Alias
-#-------------------------------------------------------------
-
-# Custom aliases
-
-alias cp='cp -v'		# Copy vebose mode
-alias cpr='cp -v -r'	# Copy a directory verbose
-alias mv='mv -v -f'		# Move vebose
-alias c='clear'         # Clear the screen
-
-#-------------------------------------------------------------
-# Functions
-#-------------------------------------------------------------
-
-# Find a file with a pattern in name
-function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
-
-# Creates an archive (*.tar.gz) from given directory.
-function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-
-# Create a ZIP archive of a file or folder.
-function makezip() { zip -r "${1%%/}.zip" "$1" ; }
-
-
-# When Sudo won't find the binary
-function mydo()
-{
-	echo Executing sudo with: "$1" "${@:2}"
-	sudo $(which $1) "${@:2}"
-}
-
-
-
-
-# Update bash_profile
-function rf()
-{
-    clear
-    printf "\n${Green}Profile updated.\n"
-    source $HOME/.bash_profile
-    rm $HOME/.bash_profile~ > /dev/null 2>&1
-}
-
-
-# Update bash_profile
-function text()
-{
-    echo
-    # Welcome text
-    printf "${Green}"
-    # Stylish welcome message
-    for ((x=0; x<${#1}; x++)); do
-        printf "${1:$x:1}"
-        #printf ' %.0s' $(seq 0 $x)
-        sleep 0.01
-    done
-    echo
-}
-
-
+source ~/.aliases
+eval $(thefuck --alias)
 
 #-------------------------------------------------------------
 # Prompt & Greetings
@@ -158,7 +98,6 @@ function text()
 # Title bar black
 #echo -n -e "\033]6;;bg;black;brightness;100\a"
 #TITLEBAR='\[\033]0;[\u] - [${SHELL} - \V]\007\]'
-source ~/.aliases
 
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
@@ -176,4 +115,3 @@ else
     export PS1="\[$Yellow\]«\[$Purple\]\[$Green\]\w\[$Yellow\]» \[$NC\]"
     #export PS1="\[$Yellow\] «\[$Purple\] \[$Green\] \w\[$Yellow\]» \[$NC\]"
 fi
-

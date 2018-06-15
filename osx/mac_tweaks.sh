@@ -52,84 +52,127 @@ fi
 
 step "Setting your computer name (as done via System Preferences → Sharing)."
 
-# UX And Performance Improvements
-echo "Disable sudden motion sensor. (Not useful for SSDs)."
-run sudo pmset -a sms 0
 
-echo "Disable press-and-hold for keys in favor of key repeat."
-run defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-echo "Set a fast keyboard repeat rate, after a good initial delay."
-run defaults write NSGlobalDomain KeyRepeat -int 1
-run defaults write NSGlobalDomain InitialKeyRepeat -int 25
+#
+# OSX GENERAL TWEAKS
+# 
 
-echo "Speed up mission control animations."
-run defaults write com.apple.dock expose-animation-duration -float 0.1
+## FINDER 
 
-echo "Remove the auto-hiding dock delay."
-run defaults write com.apple.dock autohide-delay -int 0
 
-echo "Use the dark theme."
-run defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle -string "Dark"
-
-echo "Save screenshots in PNG format."
+# Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
+run write com.apple.finder QuitMenuItem -bool true
+# Finder: show status bar
+run defaults write com.apple.finder ShowStatusBar -bool true
+# Finder: show path bar
+run defaults write com.apple.finder ShowPathbar -bool true
+# "Show all filename extensions."
+run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# "Disable the warning when changing a file extension."
+run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# "Use list view in all Finder windows by default."
+run defaults write com.apple.finder FXPreferredViewStyle -string '"Nlsv"'
+# "Show the ~/Library folder."
+run chflags nohidden ~/Library
+# "Show the /Volumes folder."
+run sudo chflags nohidden /Volumes
+# "Show hidden files in finder."
+run defaults write com.apple.finder AppleShowAllFiles -int 1
+# "Show full file path in finder windows."
+run defaults write _FXShowPosixPathInTitle com.apple.finder -int 1
+# "Save screenshots in PNG format."
 run defaults write com.apple.screencapture type -string png
-
-echo "Save screenshots to user screenshots directory instead of desktop."
+# "Save screenshots to user screenshots directory instead of desktop."
 run mkdir ~/screenshots
 run defaults write com.apple.screencapture location -string ~/screenshots
 
-echo "Disable menu transparency."
+## VISUAL 
+
+# "Speed up mission control animations."
+run defaults write com.apple.dock expose-animation-duration -float 0.1
+# "Remove the auto-hiding dock delay."
+run defaults write com.apple.dock autohide-delay -int 0
+# "Use the dark theme."
+run defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle -string "Dark"
+# "Disable menu transparency."
 run defaults write com.apple.universalaccess reduceTransparency -int 1
+# Disable Dashboard
+run defaults write com.apple.dashboard mcx-disabled -bool true
+# Don’t show Dashboard as a Space
+run defaults write com.apple.dock dashboard-in-overlay -bool true
+# Don’t automatically rearrange Spaces based on most recent use
+run defaults write com.apple.dock mru-spaces -bool false
+# "Disable sudden motion sensor. (Not useful for SSDs)."
+run sudo pmset -a sms 0
 
-echo "Show all filename extensions."
-run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-echo "Disable the warning when changing a file extension."
-run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+## MISC
 
-echo "Use list view in all Finder windows by default."
-run defaults write com.apple.finder FXPreferredViewStyle -string '"Nlsv"'
-
-echo "Show the ~/Library folder."
-run chflags nohidden ~/Library
-
-echo "Show the /Volumes folder."
-run sudo chflags nohidden /Volumes
-
-echo "Show hidden files (whose name starts with dot) in finder."
-run defaults write com.apple.finder AppleShowAllFiles -int 1
-
-echo "Show full file path in finder windows."
-run defaults write _FXShowPosixPathInTitle com.apple.finder -int 1
-
-echo "Disable crash reporter."
+# "Disable crash reporter."
 run defaults write com.apple.CrashReporter DialogType none
-
 # Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# in the login window
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-# Don’t show Dashboard as a Space
-defaults write com.apple.dock dashboard-in-overlay -bool true
+## Sound
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+
+## Save settings
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+# Prevent Photos from opening automatically when devices are plugged in
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+## Keyboard/Mouse 
 
+# "Disable press-and-hold for keys in favor of key repeat."
+run defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+# "Set a fast keyboard repeat rate, after a good initial delay."
+run defaults write NSGlobalDomain KeyRepeat -int 1
+run defaults write NSGlobalDomain InitialKeyRepeat -int 25
+# Disable “natural” (Lion-style) scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+
+#
+# Transmission
+#
+
+# Use `~/Downloads` to store completed downloads
+defaults write org.m0k.transmission DownloadLocationConstant -bool true
+# Don’t prompt for confirmation before removing non-downloading active transfers
+defaults write org.m0k.transmission CheckRemoveDownloading -bool true
+# Trash original torrent files
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+# Hide the donate message
+defaults write org.m0k.transmission WarningDonate -bool false
+# Hide the legal disclaimer
+defaults write org.m0k.transmission WarningLegal -bool false
+# Randomize port on launch
+defaults write org.m0k.transmission RandomPort -bool true
+
+
+
+# 
+# iTerm
+# 
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false

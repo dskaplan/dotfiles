@@ -25,11 +25,6 @@ alias cpr='cp -v -r'	# Copy a directory verbose
 alias mv='mv -v'		# Move vebose
 alias c='clear'         # Clear the screen
 
-# Vim stuff
-alias vv='nvim'
-alias vim='nvim'
-alias v='nvim'
-alias nm='nvim'
 
 # Show what is being weird
 alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
@@ -37,7 +32,6 @@ alias mem_hogs='top -l 1 -o rsize | head -20'
 
 # Update pip, this is bad lol.
 alias pipup="pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U"
-alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 alias caskup='brew cask update; brew cask upgrade; brew cask prune; brew cask cleanup; brew cask doctor'
 # Clear some junk files so that my machine is happier 
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
@@ -45,6 +39,8 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo 
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+# Open finder here
+alias f="open ."
 
 # Gimme the weather in Charlotte
 alias wclt='curl wttr.in/charlotte'
@@ -60,6 +56,12 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 # Print each PATH entry on a separate line
 alias showpath='echo -e ${PATH//:/\\n}'
 
+# Spam vim stuff
+alias vv='nvim'
+alias vim='nvim'
+alias v='nvim'
+alias nm='nvim'
+
 dirsize () {
   du -shx * .[a-zA-Z0-9_]* 2> /dev/null | egrep '^ *[0-9.]*[MG]' | sort -n > /tmp/list
   egrep '^ *[0-9.]*M' /tmp/list
@@ -72,10 +74,8 @@ function bkd() { cd ../$@; }
 
 # Find a file with a pattern in name
 function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
-
 # Creates an archive (*.tar.gz) from given directory.
 function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-
 # Create a ZIP archive of a file or folder.
 function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 

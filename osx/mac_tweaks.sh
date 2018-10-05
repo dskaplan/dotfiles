@@ -30,13 +30,10 @@ step() {
 }
 
 run() {
-    echo "${dim}▹ $@ $reset"
     eval $@
 }
 
-echo ""
 headline " Let's secure your Mac and install basic applications."
-echo ""
 echo "Modifying settings for user: $user."
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -67,35 +64,35 @@ run write com.apple.finder QuitMenuItem -bool true
 run defaults write com.apple.finder ShowStatusBar -bool true
 # Finder: show path bar
 run defaults write com.apple.finder ShowPathbar -bool true
-# "Show all filename extensions."
+# Show all filename extensions.
 run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# "Disable the warning when changing a file extension."
+# Disable the warning when changing a file extension.
 run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-# "Use list view in all Finder windows by default."
+# Use list view in all Finder windows by default.
 run defaults write com.apple.finder FXPreferredViewStyle -string '"Nlsv"'
-# "Show the ~/Library folder."
+# Show the ~/Library folder.
 run chflags nohidden ~/Library
-# "Show the /Volumes folder."
+# Show the /Volumes folder.
 run sudo chflags nohidden /Volumes
-# "Show hidden files in finder."
+# Show hidden files in finder.
 run defaults write com.apple.finder AppleShowAllFiles -int 1
-# "Show full file path in finder windows."
+# Show full file path in finder windows.
 run defaults write _FXShowPosixPathInTitle com.apple.finder -int 1
-# "Save screenshots in PNG format."
+# Save screenshots in PNG format.
 run defaults write com.apple.screencapture type -string png
-# "Save screenshots to user screenshots directory instead of desktop."
-run mkdir ~/screenshots
+# Save screenshots to user screenshots directory instead of desktop.
+# run mkdir ~/screenshots
 run defaults write com.apple.screencapture location -string ~/screenshots
 
 ## VISUAL 
 
-# "Speed up mission control animations."
+# Speed up mission control animations.
 run defaults write com.apple.dock expose-animation-duration -float 0.1
-# "Remove the auto-hiding dock delay."
+# Remove the auto-hiding dock delay.
 run defaults write com.apple.dock autohide-delay -int 0
-# "Use the dark theme."
+# Use the dark theme.
 run defaults write ~/Library/Preferences/.GlobalPreferences AppleInterfaceStyle -string "Dark"
-# "Disable menu transparency."
+# Disable menu transparency.
 run defaults write com.apple.universalaccess reduceTransparency -int 1
 # Disable Dashboard
 run defaults write com.apple.dashboard mcx-disabled -bool true
@@ -103,19 +100,18 @@ run defaults write com.apple.dashboard mcx-disabled -bool true
 run defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 run defaults write com.apple.dock mru-spaces -bool false
-# "Disable sudden motion sensor. (Not useful for SSDs)."
+# Disable sudden motion sensor. (Not useful for SSDs).
 run sudo pmset -a sms 0
 
 
 ## MISC
 
-# "Disable crash reporter."
+# Disable crash reporter.
 run defaults write com.apple.CrashReporter DialogType none
 # Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
+# Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 ## Sound
@@ -142,9 +138,9 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 ## Keyboard/Mouse 
 
-# "Disable press-and-hold for keys in favor of key repeat."
+# Disable press-and-hold for keys in favor of key repeat.
 run defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-# "Set a fast keyboard repeat rate, after a good initial delay."
+# Set a fast keyboard repeat rate, after a good initial delay.
 run defaults write NSGlobalDomain KeyRepeat -int 1
 run defaults write NSGlobalDomain InitialKeyRepeat -int 25
 # Disable “natural” (Lion-style) scrolling

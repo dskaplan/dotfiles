@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	# name = David
-  # email = david@dkpln.com
+  # email = X@X.com
 [color]
         ui = true
 [color "branch"]
@@ -26,4 +26,4 @@
         s = status
         sb = status -s -b
 [core]
-  # excludesfile = /Users/DKaplan/.gitignore_global
+  excludesfile = ~/.gitignore_global

@@ -12,11 +12,8 @@ ln -s dotfiles/.aliases        .aliases
 vim pluginInstall +qall
 
 if [ "$(uname)" = Darwin ]; then
-  sh dotfiles/mac_tweaks.sh
+  sh dotfiles/tweaks.sh
 fi
 
 
 
-if [ "$(uname)" = Linux ]; then
-  sh dotfiles/mac_tweaks.sh
-fi

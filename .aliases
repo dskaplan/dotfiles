@@ -3,7 +3,6 @@ alias python='python3'
 alias py='python3'
 alias py2='python2'
 alias pip='pip3'
-alias pyserv='python3 -m http.server'
 alias jnb='jupyter notebook'
 alias pya='python3 app.py'
 
@@ -14,9 +13,11 @@ alias tmkill='pkill -f tmux'
 # Terminal
 alias tree='exa --tree'
 alias l='exa -lah -G  --color-scale --group-directories-first'
+alias lsm='exa -lah -G  --color-scale --group-directories-first -s modified'
 alias lsd='exa -lF'
 
 alias gc="git clone"
+alias undopush="git push -f origin HEAD^:master"
 
 alias bk="cd ../"
 alias bkk="cd ../../"
@@ -26,6 +27,7 @@ alias mv='mv -v'		# Move vebose
 
 alias dl="cd ~/Downloads"
 alias docs='cd ~/Documents'
+alias dk='cd ~/Desktop'
 
 alias chmox='chmod -x'
 
@@ -33,9 +35,9 @@ alias chmox='chmod -x'
 alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
 alias mem_hogs='top -l 1 -o rsize | head -20'
 
-# Update pip, this is bad lol.
-alias pipup="pip4 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U"
-alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
+# brew/pip things
+alias pipup='pip list --outdated'
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor; brew cask upgrade;'
 alias brews='brew search'
 #
 # Clear some junk files so that my machine is happier 
@@ -47,10 +49,8 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Open finder here
 alias f="open ."
-alias wclt='curl wttr.in/charlotte'
-# Print each PATH entry on a separate line
-alias showpath='echo -e ${PATH//:/\\n}'
-alias reload="exec ${SHELL} -l"
+alias wphl='curl wttr.in/philadelphia'
+
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Net things
@@ -59,29 +59,8 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
 # Spam vim stuff
 alias vv='nvim'
 alias vim='nvim'
 alias v='nvim'
 alias nm='nvim'
-
-dirsize () {
-  du -shx * .[a-zA-Z0-9_]* 2> /dev/null | egrep '^ *[0-9.]*[MG]' | sort -n > /tmp/list
-  egrep '^ *[0-9.]*M' /tmp/list
-  egrep '^ *[0-9.]*G' /tmp/list
-  rm -rf /tmp/list
-}
-
-function mkcd() { mkdir $@; cd $@; }
-function bkd() { cd ../$@; }
-function lg() { l | grep $@; }
-# Find a file with a pattern in name
-function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
-# Creates an archive (*.tar.gz) from given directory.
-function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-# Create a ZIP archive of a file or folder.
-function makezip() { zip -r "${1%%/}.zip" "$1" ; }

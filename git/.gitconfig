@@ -1,18 +1,22 @@
 # This is Git's per-user configuration file.
 [user]
+	name = David Kaplan
+	email = david@dkpln.com
 	# name = David
   # email = X@X.com
 [color]
-        ui = true
+	ui = true
 [color "branch"]
     current = yellow reverse
     local = yellow
     remote = green
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+	meta = 11
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	commit = yellow bold
+	whitespace = red reverse
 [color "status"]
     added = yellow
     changed = green
@@ -25,5 +29,13 @@
         f = fetch
         s = status
         sb = status -s -b
+        cp = cherry-pick
 [core]
   excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+

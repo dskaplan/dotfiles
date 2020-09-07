@@ -47,8 +47,20 @@ export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 #-------------------------------------------------------------
 # Shell colors
 export TERM=xterm-256color
+export CLICOLOR=1
+#export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
+export LS_COLORS='GxFxCxDxBxegedabagaced'
 
+# Colors
+export Red=$(tput setaf 1)
+export Green=$(tput setaf 2) #
+export Yellow=$(tput setaf 3)
+export Blue=$(tput setaf 4)
+export Purple=$(tput setaf 5)
+export Black='\e[0;30m'
+export Cyan='\e[0;36m'
 
+export NC=$(tput sgr0)
 #-------------------------------------------------------------
 # Prompt
 #-------------------------------------------------------------

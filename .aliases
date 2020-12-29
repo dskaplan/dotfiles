@@ -37,7 +37,8 @@ alias mem_hogs='top -l 1 -o rsize | head -20'
 
 # brew/pip things
 alias pipup='pip list --outdated'
-alias brewup='brew update; brew upgrade; brew cleanup; brew doctor; brew cask upgrade;'
+alias brewup='brew update; brew upgrade; brew upgrade --cask; brew cleanup; brew doctor;'
+
 alias brews='brew search'
 #
 # Clear some junk files so that my machine is happier 
